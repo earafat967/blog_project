@@ -221,11 +221,7 @@
 
 <section class="content">
     <div class="col-md-12">
-        @if(session()->has('success'))
-            <div class="alert alert-success" role="alert">
-                {{ session('success') }}
-            </div>
-        @endif
+       @include('layouts.backend.partial.message')
     </div>
     @yield('content')
 

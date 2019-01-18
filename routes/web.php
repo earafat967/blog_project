@@ -25,6 +25,9 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
 
 //        Tag Route
         Route::resource('tag','TagController');
+        Route::resource('catg','CatgController');
+//        Category Route
+        Route::resource('category','CategoryController');
     });
 
 Route::group(['as'=>'author.','prefix'=>'author','namespace'=>'Author','middleware'=>['auth','author']],
