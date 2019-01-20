@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','Tag')
+@section('title','Category')
 
 @push('css')
 
@@ -13,16 +13,15 @@
             <div class="card">
                 <div class="header">
                     <h2>
-                        ADD NEW TAG
+                        ADD NEW CATEGORY
                     </h2>
                 </div>
                 <div class="body">
-                    {{ Form::model($tag,['route'=>['admin.tag.update',$tag->id],'method'=>'put']) }}
-                    @include('admin.tags.form')
+                    {{ Form::model($category,['route'=>['admin.category.update',$category->id],'method'=>'put','files'=>true]) }}
+                    @include('admin.category.form')
                     <br>
-                    <a class="btn btn-danger m-t-15 waves-effect" href="{{ route('admin.tag.index') }}">Back</a>
-                    {{ Form::submit('Update Tag',['class'=>'btn btn-primary m-t-15 waves-effect']) }}
-                    {{--<button type="button" class="btn btn-primary m-t-15 waves-effect">SUBMIT</button>--}}
+                    <a class="btn btn-danger m-t-15 waves-effect" href="{{ route('admin.category.index') }}">Back</a>
+                    {{ Form::submit('Update Category',['class'=>'btn btn-primary m-t-15 waves-effect']) }}
                     {{ Form::close() }}
                 </div>
             </div>

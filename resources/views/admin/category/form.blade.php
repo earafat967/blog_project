@@ -7,5 +7,4 @@
 </div>
 <div class="form-group">
     {{ Form::file('image') }}
-    {{--{{ Form::file('image',null,[$image_repuired]) }}--}}
 </div>
