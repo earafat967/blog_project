@@ -1,6 +1,6 @@
 @extends('layouts.backend.app')
 
-@section('title','Category')
+@section('title','Post')
 
 @push('css')
     <link href="{{ asset('assets/backend/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css') }}" rel="stylesheet">
@@ -9,9 +9,9 @@
 @section('content')
     <div class="container-fluid">
         <div class="block-header">
-            <a class="btn btn-primary waves-effect" href="{{ route('admin.category.create') }}">
+            <a class="btn btn-primary waves-effect" href="{{ route('admin.post.create') }}">
                 <i class="material-icons">add</i>
-                <span>Add Category</span>
+                <span>Add Post</span>
             </a>
         </div>
         <!-- Exportable Table -->
@@ -20,8 +20,8 @@
                 <div class="card">
                     <div class="header">
                         <h2>
-                            All Category
-                            <span class="badge bg-info">{{ $categories->count() }}</span>
+                            All Posts
+                            <span class="badge bg-info">{{ $posts->count() }}</span>
                         </h2>
                     </div>
                     <div class="body">
@@ -30,8 +30,11 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Post Count</th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th><i class="material-icons">visibility</i></th>
+                                    <th>Is Approved</th>
+                                    <th>Status</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
                                     <th>Action</th>
@@ -40,18 +43,33 @@
 
                                 <tbody>
                                 <tr>
-                                    @foreach($categories as $key=>$category)
+                                    @foreach($posts as $key=>$post)
                                         <td>{{ $key +1 }}</td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->posts->count() }}</td>
-                                        <td>{{ $category->created_at }}</td>
-                                        <td>{{ $category->updated_at }}</td>
+                                        <td>{{ str_limit($post->title,'15') }}</td>
+                                        <td>{{ $post->user->name }}</td>
+                                        <td>{{ $post->view_count}}</td>
+                                        <td>
+                                            @if($post->is_approved == true)
+                                                <span class="badge bg-blue">Approved</span>
+                                                @else
+                                                <span class="badge bg-pink">Pending</span>
+                                                @endif
+                                        </td>
+                                        <td>
+                                            @if($post->status == true)
+                                                <span class="badge bg-blue">Published</span>
+                                            @else
+                                                <span class="badge bg-pink">Pending</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $post->created_at }}</td>
+                                        <td>{{ $post->updated_at }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('admin.category.edit',$category->id) }}"
+                                            <a href="{{ route('admin.post.edit',$post->id) }}"
                                                class="btn btn-info waves-effect">
                                                 <i class="material-icons">edit</i>
                                             </a>
-                                            {{ Form::open(['route'=>['admin.category.destroy',$category->id],'method'=>'DELETE']) }}
+                                            {{ Form::open(['route'=>['admin.post.destroy',$post->id],'method'=>'DELETE']) }}
                                             {{ Form::submit('Delete',['class'=>'btn btn-danger waves-effect', 'onclick'=>"return confirm('Are you confirm ?')"]) }}
                                             {{ Form::close() }}
 

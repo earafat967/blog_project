@@ -19,7 +19,10 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
                     <div class="header">
-                        <h2>All Tags</h2>
+                        <h2>
+                            All Tags
+                            <span class="badge bg-info">{{ $tags->count() }}</span>
+                        </h2>
                        </div>
                     <div class="body">
                         <div class="table-responsive">
@@ -28,6 +31,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Post Count</th>
                                     <th>Created At</th>
                                     <th>Updated At</th>
                                     <th>Action</th>
@@ -39,6 +43,7 @@
                                     @foreach($tags as $key=>$tag)
                                     <td>{{ $key +1 }}</td>
                                     <td>{{ $tag->name }}</td>
+                                    <td>{{ $tag->posts->count() }}</td>
                                     <td>{{ $tag->created_at }}</td>
                                     <td>{{ $tag->updated_at }}</td>
                                     <td class="text-center">
