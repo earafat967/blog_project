@@ -183,6 +183,27 @@ class PostController extends Controller
 
     }
 
+    public function pending()
+    {
+        $data['posts'] = Post::where('is_approved',false)->get();
+        return view('admin.post.pending',$data);
+    }
+
+    public function approval($id)
+    {
+        $post = Post::findOrFail($id);
+        if ($post->is_approved == false)
+        {
+            $post->is_approved = true;
+            $post->save();
+            session()->flash('success','Post Approved successfully by Admin');
+        } else
+        {
+            session()->flash('success','Post has already Approved');
+        }
+        return redirect()->back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *

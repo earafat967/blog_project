@@ -11,10 +11,11 @@
         <!-- Vertical Layout | With Floating Label -->
         <a href="{{ route('admin.post.index') }}" class="btn btn-danger waves-effect">BACK</a>
         @if($post->is_approved ==false)
-            <button type="button"class="btn btn-success pull-right">
-                <i class="material-icons">done</i>
-                <span>Approve</span>
-            </button>
+            {{ Form::open(['route'=>['admin.post.approve',$post->id],'method'=>'put']) }}
+            {{ Form::submit('Approve',['class'=>'btn btn-success m-t-15 waves-effect pull-right']) }}
+            {{ Form::close() }}
+            <br>
+            <br>
             @else
             <button type="button"class="btn btn-success pull-right disabled">
                 <i class="material-icons">done</i>

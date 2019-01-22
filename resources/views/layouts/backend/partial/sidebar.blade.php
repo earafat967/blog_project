@@ -59,6 +59,12 @@
                         <span>Posts</span>
                     </a>
                 </li>
+                <li class="{{ Request::is('admin/pending/post') ? 'active' : '' }}">
+                    <a href="{{ route('admin.post.pending') }}">
+                        <i class="material-icons">library_books</i>
+                        <span>Pending Post</span>
+                    </a>
+                </li>
                 <li class="header">System</li>
 
                 <li>
