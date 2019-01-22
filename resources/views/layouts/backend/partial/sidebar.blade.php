@@ -76,10 +76,16 @@
                 @endif
 
             @if(Request::is('author*'))
-                <li class="active">
+                <<li class="{{ Request::is('author/dashboard') ? 'active' : '' }}">
                     <a href="{{ route('author.dashboard') }}">
                         <i class="material-icons">dashboard</i>
                         <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="{{ Request::is('author/post*') ? 'active' : '' }}">
+                    <a href="{{ route('author.post.index') }}">
+                        <i class="material-icons">library_books</i>
+                        <span>Posts</span>
                     </a>
                 </li>
                 <li class="header">System</li>

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Author;
 
 use App\Category;
 use App\Post;
 use App\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -21,8 +21,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data['posts'] = Post::latest()->get();
-        return view('admin.post.index',$data);
+        $data['posts'] = Auth::User()->posts()->latest()->get();
+        return view('author.post.index',$data);
     }
 
     /**
@@ -34,7 +34,7 @@ class PostController extends Controller
     {
         $data['categories'] = Category::all();
         $data['tags'] = Tag::all();
-        return view('admin.post.create',$data);
+        return view('author.post.create',$data);
     }
 
     /**
@@ -45,6 +45,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request,[
             'title' => 'required',
             'image' => 'required',
@@ -85,14 +86,13 @@ class PostController extends Controller
         } else{
             $post->status = false;
         }
-        $post->is_approved = true;
+        $post->is_approved = false;
         $post->save();
         $post->categories()->attach($request->categories);
         $post->tags()->attach($request->tags);
 
         session()->flash('success','Post insert successfully');
-        return redirect()->route('admin.post.index');
-
+        return redirect()->route('author.post.index');
     }
 
     /**
@@ -103,7 +103,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.post.show',compact('post'));
+        return view('author.post.show',compact('post'));
     }
 
     /**
@@ -116,7 +116,7 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
-        return view('admin.post.edit',compact('post','categories','tags'));
+        return view('author.post.edit',compact('post','categories','tags'));
     }
 
     /**
@@ -173,14 +173,13 @@ class PostController extends Controller
         } else{
             $post->status = false;
         }
-        $post->is_approved = true;
+        $post->is_approved = false;
         $post->save();
         $post->categories()->sync($request->categories);
         $post->tags()->sync($request->tags);
 
         session()->flash('success','Post updated successfully');
-        return redirect()->route('admin.post.index');
-
+        return redirect()->route('author.post.index');
     }
 
     /**
@@ -200,6 +199,6 @@ class PostController extends Controller
         $post->delete();
 
         session()->flash('success','Post Deleted successfully');
-        return redirect()->route('admin.post.index');
+        return redirect()->route('author.post.index');
     }
 }

@@ -9,7 +9,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="block-header">
-            <a class="btn btn-primary waves-effect" href="{{ route('admin.post.create') }}">
+            <a class="btn btn-primary waves-effect" href="{{ route('author.post.create') }}">
                 <i class="material-icons">add</i>
                 <span>Add Post</span>
             </a>
@@ -63,11 +63,11 @@
                                         </td>
                                         <td>{{ $post->created_at }}</td>
                                         <td class="text-center">
-                                            <a href="{{ route('admin.post.show',$post->id) }}"
+                                            <a href="{{ route('author.post.show',$post->id) }}"
                                                class="btn btn-info waves-effect">
                                                 <i class="material-icons">visibility</i>
                                             </a>
-                                            <a href="{{ route('admin.post.edit',$post->id) }}"
+                                            <a href="{{ route('author.post.edit',$post->id) }}"
                                                class="btn btn-info waves-effect">
                                                 <i class="material-icons">edit</i>
                                             </a>
@@ -78,7 +78,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                             </form>--}}
-                                            {{ Form::open(['route'=>['admin.post.destroy',$post->id],'method'=>'DELETE']) }}
+                                            {{ Form::open(['route'=>['author.post.destroy',$post->id],'method'=>'DELETE']) }}
                                             {{ Form::submit('Delete',['class'=>'btn btn-danger waves-effect','onclick'=>"return confirm('Are you confirm to Delete?')"]) }}
                                             {{ Form::close() }}
 
