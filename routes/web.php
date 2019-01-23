@@ -18,6 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 /*
 Route::get('/home', 'HomeController@index')->name('home');*/
+// Subscriber Route
+Route::post('subscriber','SubscriberController@store')->name('subscriber.store');
 
 Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admin']],
     function (){
@@ -34,6 +36,9 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
         Route::get('pending/post','PostController@pending')->name('post.pending');
 //        Approve route
         Route::put('/post/{id}/approve','PostController@approval')->name('post.approve');
+//        subscriber
+        Route::get('/subscriber','SubscriberController@index')->name('subscriber.index');
+        Route::delete('/subscriber/{id}','SubscriberController@destroy')->name('subscriber.destroy');
 
     });
 

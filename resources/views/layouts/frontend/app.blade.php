@@ -20,6 +20,9 @@
 </head>
 <body>
     @include('layouts.frontend.partial.header')
+    <div class="col-md-12">
+        @include('layouts.frontend.partial.message')
+    </div>
 
     @yield('content')
 
